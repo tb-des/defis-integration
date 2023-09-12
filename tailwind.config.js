@@ -20,6 +20,7 @@ module.exports = {
         header: "#BCBC76",
         challenges: "#445565",
         challenges2: "#667F96",
+        challenges3: "#5A7085",
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",

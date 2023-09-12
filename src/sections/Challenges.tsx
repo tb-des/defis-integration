@@ -2,6 +2,7 @@ import Coin from "@/components/Coin";
 import Loader from "@/components/Loader";
 import useFetch from "@/hooks/useFetch";
 import Challenge from "@/types/Challenge";
+import { useState } from "react";
 
 const Challenges = () => {
   const { data, loading } = useFetch<Challenge[]>(
@@ -15,19 +16,36 @@ const Challenges = () => {
       ) : (
         <div className="flex flex-col gap-4">
           {data.map((challenge) => (
-            <div
-              key={challenge.id}
-              className="flex bg-challenges2 gap-4 items-center py-3 px-5 rounded-xl"
-            >
-              <Coin color="gold" content={challenge.points} size="small" />
-              <span className="md:text-xl text-lg flex-1">
-                {challenge.description}
-              </span>
-            </div>
+            <ChallengeBox challenge={challenge} />
           ))}
         </div>
       )}
     </section>
+  );
+};
+
+const ChallengeBox = ({ challenge }: { challenge: Challenge }) => {
+  const [active, setActive] = useState<boolean>(false);
+  return (
+    <div
+      className="rounded-xl overflow-hidden"
+      key={challenge.id}
+      onClick={() => {
+        setActive((prev) => !prev);
+      }}
+    >
+      <div className="flex bg-challenges2 gap-4 items-center py-3 px-5">
+        <Coin color="gold" content={challenge.points} size="small" />
+        <span className="md:text-xl text-lg flex-1">{challenge.name}</span>
+      </div>
+      <div
+        className={`overflow-hidden bg-challenges3 text-center max-h-0 transition ${
+          active ? "max-h-[1000px]" : "max-h-0"
+        }`}
+      >
+        <div className="p-2">{challenge.description}</div>
+      </div>
+    </div>
   );
 };
 

@@ -3,6 +3,7 @@ import Loader from "@/components/Loader";
 import useFetch from "@/hooks/useFetch";
 import Challenge from "@/types/Challenge";
 import { useState } from "react";
+import { FaAngleDown, FaAngleUp } from "react-icons/fa";
 
 const Challenges = () => {
   const { data, loading } = useFetch<Challenge[]>(
@@ -16,7 +17,7 @@ const Challenges = () => {
       ) : (
         <div className="flex flex-col gap-4">
           {data.map((challenge) => (
-            <ChallengeBox challenge={challenge} />
+            <ChallengeBox challenge={challenge} key={challenge.id} />
           ))}
         </div>
       )}
@@ -37,6 +38,9 @@ const ChallengeBox = ({ challenge }: { challenge: Challenge }) => {
       <div className="flex bg-challenges2 gap-4 items-center py-3 px-5">
         <Coin color="gold" content={challenge.points} size="small" />
         <span className="md:text-xl text-lg flex-1">{challenge.name}</span>
+        <span className="text-2xl">
+          {active ? <FaAngleUp /> : <FaAngleDown />}
+        </span>
       </div>
       <div
         className={`overflow-hidden bg-challenges3 text-center max-h-0 transition ${

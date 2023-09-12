@@ -5,7 +5,7 @@ import { Toaster } from "@/components/ui/toaster";
 const App = () => {
   return (
     <>
-      <div>
+      <div className="relative">
         <Header />
         <Challenges />
       </div>

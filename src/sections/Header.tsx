@@ -1,25 +1,15 @@
-import Coin from "@/components/Coin";
 import Loader from "@/components/Loader";
+import UserScore from "@/components/UserScore";
 import useFetch from "@/hooks/useFetch";
 import User from "@/types/User";
+import { FaAngleRight } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 
 const Header = () => {
   const { loading, data } = useFetch<User[]>(
     "https://fouaille.bde-tps.fr/api/challenge/top"
   );
-
-  const color = (index: number) => {
-    switch (index) {
-      case 0:
-        return "gold";
-      case 1:
-        return "silver";
-      case 2:
-        return "bronze";
-      default:
-        return "red";
-    }
-  };
+  const navigate = useNavigate();
 
   return (
     <section className="bg-header">
@@ -28,19 +18,18 @@ const Header = () => {
         <div className="flex-1 flex justify-end md:order-1 order-2">
           <img src="./images/bus.png" width={400} height={400} loading="lazy" />
         </div>
-        <div className="flex flex-col gap-4 w-fit relative flex-1 md:order-2 order-1">
+        <div className="flex-1 md:order-2 order-1">
           {loading || !data ? (
             <Loader />
           ) : (
-            data.map((user, index) => (
-              <div key={user.id} className="flex items-center gap-8">
-                <Coin content={index + 1} color={color(index)} />
-                <div>
-                  <h2 className="text-xl font-semibold">{user.name}</h2>
-                  <span className="text-lg">{user.points} points</span>
-                </div>
-              </div>
-            ))
+            <div className="w-fit flex flex-col gap-4">
+              {data.map((user, index) => (
+                <UserScore user={user} index={index} key={user.id} />
+              ))}
+              <button onClick={() => navigate("/challenge")}>
+                Voir plus <FaAngleRight />
+              </button>
+            </div>
           )}
         </div>
       </div>

@@ -36,7 +36,7 @@ const ChallengeBox = ({ challenge }: { challenge: Challenge }) => {
       }}
     >
       <div className="flex bg-challenges2 gap-4 items-center py-3 px-5">
-        <Coin color="gold" content={challenge.points} size="small" />
+        <Coin color="gold" content={challenge.category} size="small" />
         <span className="md:text-xl text-lg flex-1">{challenge.name}</span>
         <span className="text-2xl">
           {active ? <FaAngleUp /> : <FaAngleDown />}

@@ -20,7 +20,7 @@ const UserScore = ({ user, index }: { user: User; index: number }) => {
       <Coin content={index + 1} color={color(index)} />
       <div>
         <h2 className="text-xl font-semibold">{user.name}</h2>
-        <span className="text-lg">{user.points} défis complétés et {user.category} catégories complétées</span>
+        <span className="text-lg">{user.points} points avec {user.category} catégories complétées</span>
       </div>
     </div>
   );
